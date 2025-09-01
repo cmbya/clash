@@ -333,7 +333,7 @@ rule-providers:
   FCM / Domain: {<<: *class, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/GoogleFCM.list"}
   FCM_ip: { <<: *text_ip, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/fcmip.list"}
   ZL / Domain: {<<: *class, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/zhilian.list"}
-  zhilian_ip: { <<: *text_ip, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/zhilianip.list"}
+  ZL_ip: { <<: *text_ip, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/zhilianip.list"}
   Copilot / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Copilot/Copilot.list"}
   ChatGPT / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openai.mrs"}
   twitch / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/twitch.mrs"}
@@ -365,6 +365,7 @@ rule-providers:
   Youtube / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs"}  
   Google / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs"}  
   Google / IP: {<<: *ip, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/google.mrs"}
+
 
 
 
