@@ -292,7 +292,7 @@ rules:
   # 优先级最高的国内直连规则，确保国内访问畅通
   # =========================================================
   - RULE-SET,ZL / Domain,ZL
-  - RULE-SET,ZL / IP,ZL,no-resolve
+  - RULE-SET,ZL_ip,ZL,no-resolve
   - RULE-SET,FCM / Domain,FCM
   - RULE-SET,FCM_ip,FCM,no-resolve
   - GEOIP,CN,国内,no-resolve
@@ -339,7 +339,6 @@ rules:
   # 默认匹配规则，处理所有未被前面规则命中的流量
   # =========================================================
   - MATCH,其他
-
 # ========================
 # 规则集提供者
 # ========================
@@ -352,9 +351,9 @@ rule-anchor:
 rule-providers:
   TEST / Domain: {<<: *class, url: "https://gh-proxy.com/raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Check.list"}
   FCM / Domain: {<<: *class, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/GoogleFCM.list"}
-  FCM_ip: { <<: *text_ip, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/fcmip.list"}
+  FCM: { <<: *text_ip, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/fcmip.list"}
   ZL / Domain: {<<: *class, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/zhilian.list"}
-  ZL_ip: { <<: *text_ip, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/zhilianip.list"}
+  ZL: { <<: *text_ip, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/zhilianip.list"}
   Copilot / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Copilot/Copilot.list"}
   ChatGPT / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openai.mrs"}
   twitch / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/twitch.mrs"}
@@ -386,6 +385,7 @@ rule-providers:
   Youtube / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs"}  
   Google / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs"}  
   Google / IP: {<<: *ip, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/google.mrs"}
+
 
 
 
