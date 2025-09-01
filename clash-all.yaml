@@ -114,85 +114,296 @@ proxy-groups:
   - {name: 国内, <<: *default}
   - {name: 其他, <<: *default}
 
-  - name: 所有-手动
-    type: select
-    use:
-      - 聚合
-    filter: "^((?!(直连|拒绝)).)*$"
+   - name: 所有-手动
 
-  - name: 所有-自动
-    type: url-test
-    tolerance: 50
-    interval: 300
-    use:
-      - 聚合
-    filter: "^((?!(直连|拒绝)).)*$"
+    type: select
 
-  # 香港组
-  - name: 香港-故转
-    type: fallback
-    interval: 300
-    lazy: false
-    use:
-      - 聚合
-    filter: "(?=.*(广港|香港|HK|Hong Kong|🇭🇰|HongKong)).*$"
+    include-all: true
 
-  - name: 台湾-故转
-    type: fallback
-    interval: 300
-    lazy: false
-    use:
-      - 聚合
-    filter: "(?=.*(广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan)).*$"
+    filter: "^((?!(直连|拒绝)).)*$"
 
-  - name: 日本-故转
-    type: fallback
-    interval: 300
-    lazy: false
-    use:
-      - 聚合
-    filter: "(?=.*(广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan)).*$"
 
-  - name: 新加坡-故转
-    type: fallback
-    interval: 300
-    lazy: false
-    use:
-      - 聚合
-    filter: "(?=.*(广新|新加坡|SG|坡|狮城|🇸🇬|Singapore)).*$"
 
-  - name: 韩国-故转
-    type: fallback
-    interval: 300
-    lazy: false
-    use:
-      - 聚合
-    filter: "(?=.*(广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea)).*$"
+  - name: 所有-自动
 
-  - name: 美国-故转
-    type: fallback
-    interval: 300
-    lazy: false
-    use:
-      - 聚合
-    filter: "(?=.*(广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States)).*$"
+    type: url-test
 
-  - name: 英国-故转
-    type: fallback
-    interval: 300
-    lazy: false
-    use:
-      - 聚合
-    filter: "(?=.*(英国|英|伦敦|UK|United Kingdom|🇬🇧|London)).*$"
+    include-all: true
 
-  - name: 其他-故转
-    type: fallback
-    interval: 300
-    lazy: false
-    use:
-      - 聚合
-    filter: "^((?!(直连|拒绝|广港|香港|HK|Hong Kong|🇭🇰|HongKong|广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States|英国|UK|United Kingdom|伦敦|英|London|🇬🇧)).)*$"
+    tolerance: 50
 
+    interval: 300
+
+    filter: "^((?!(直连|拒绝)).)*$"
+
+
+
+  # 香港组
+
+  - name: 香港-故转
+
+    type: fallback
+
+    interval: 300
+
+    lazy: false
+
+    proxies:
+
+      - 香港-手动
+
+      - 香港-自动
+
+  
+
+  - name: 香港-手动
+
+    type: select
+
+    include-all: true
+
+    filter: "(?=.*(广港|香港|HK|Hong Kong|🇭🇰|HongKong)).*$"
+
+    
+
+  - name: 香港-自动
+
+    type: url-test
+
+    include-all: true
+
+    tolerance: 50
+
+    interval: 300
+
+    filter: "(?=.*(广港|香港|HK|Hong Kong|🇭🇰|HongKong)).*$"
+
+ 
+
+  # 台湾组
+
+  - name: 台湾-故转
+
+    type: fallback
+
+    interval: 300
+
+    lazy: false
+
+    proxies:
+
+      - 台湾-手动
+
+      - 台湾-自动
+
+  - name: 台湾-手动
+
+    type: select
+
+    include-all: true
+
+    filter: "(?=.*(广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan)).*$"
+
+  - name: 台湾-自动
+
+    type: url-test
+
+    include-all: true
+
+    tolerance: 50
+
+    interval: 300
+
+    filter: "(?=.*(广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan)).*$"
+
+
+
+  # 日本组
+
+  - name: 日本-故转
+
+    type: fallback
+
+    interval: 300
+
+    lazy: false
+
+    proxies:
+
+      - 日本-手动
+
+      - 日本-自动
+
+  - name: 日本-手动
+
+    type: select
+
+    include-all: true
+
+    filter: "(?=.*(广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan)).*$"
+
+  - name: 日本-自动
+
+    type: url-test
+
+    include-all: true
+
+    tolerance: 50
+
+    interval: 300
+
+    filter: "(?=.*(广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan)).*$"
+
+
+
+  # 新加坡组
+
+  - name: 新加坡-故转
+
+    type: fallback
+
+    interval: 300
+
+    lazy: false
+
+    proxies:
+
+      - 新加坡-手动
+
+      - 新加坡-自动
+
+  - name: 新加坡-手动
+
+    type: select
+
+    include-all: true
+
+    filter: "(?=.*(广新|新加坡|SG|坡|狮城|🇸🇬|Singapore)).*$"
+
+  - name: 新加坡-自动
+
+    type: url-test
+
+    include-all: true
+
+    tolerance: 50
+
+    interval: 300
+
+    filter: "(?=.*(广新|新加坡|SG|坡|狮城|🇸🇬|Singapore)).*$"
+
+
+
+  # 韩国组
+
+  - name: 韩国-故转
+
+    type: fallback
+
+    interval: 300
+
+    lazy: false
+
+    proxies:
+
+      - 韩国-手动
+
+      - 韩国-自动
+
+  - name: 韩国-手动
+
+    type: select
+
+    include-all: true
+
+    filter: "(?=.*(广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea)).*$"
+
+  - name: 韩国-自动
+
+    type: url-test
+
+    include-all: true
+
+    tolerance: 50
+
+    interval: 300
+
+    filter: "(?=.*(广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea)).*$"
+
+
+
+  # 美国组
+
+  - name: 美国-故转
+
+    type: fallback
+
+    interval: 300
+
+    lazy: false
+
+    proxies:
+
+      - 美国-手动
+
+      - 美国-自动
+
+  - name: 美国-手动
+
+    type: select
+
+    include-all: true
+
+    filter: "(?=.*(广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States)).*$"
+
+  - name: 美国-自动
+
+    type: url-test
+
+    include-all: true
+
+    tolerance: 50
+
+    interval: 300
+
+    filter: "(?=.*(广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States)).*$"
+
+
+  # 其他组
+
+  - name: 其他-故转
+
+    type: fallback
+
+    interval: 300
+
+    lazy: false
+
+    proxies:
+
+      - 其他-手动
+
+      - 其他-自动
+
+  - name: 其他-手动
+
+    type: select
+
+    include-all: true
+
+    filter: "^((?!(直连|拒绝|广港|香港|HK|Hong Kong|🇭🇰|HongKong|广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States|英国|UK|United Kingdom|伦敦|英|London|🇬🇧)).)*$"
+
+  - name: 其他-自动
+
+    type: url-test
+
+    include-all: true
+
+    tolerance: 50
+
+    interval: 300
+
+    filter: "^((?!(直连|拒绝|广港|香港|HK|Hong Kong|🇭🇰|HongKong|广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States|英国|UK|United Kingdom|伦敦|英|London|🇬🇧)).)*$"
 # ========================
 # 规则引擎（rules）
 # ========================
@@ -297,4 +508,5 @@ rule-providers:
   Youtube / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs"}
   Google / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs"}
   Google / IP: {<<: *ip, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/google.mrs"}
+
 
