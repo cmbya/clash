@@ -294,10 +294,11 @@ rules:
   # =========================================================
   # 优先级最高的国内和私有直连规则
   # =========================================================
-  - RULE-SET,ZL / Domain,ZL
   - RULE-SET,ZL_ip,ZL,no-resolve
-  - RULE-SET,FCM / Domain,FCM
   - RULE-SET,FCM_ip,FCM,no-resolve
+  - RULE-SET,Google / IP,Google,no-resolve
+  - RULE-SET,ZL / Domain,ZL
+  - RULE-SET,FCM / Domain,FCM
   - RULE-SET,Private / Domain,国内
   - RULE-SET,Direct / Domain,国内
 
@@ -305,7 +306,6 @@ rules:
   # 高优先级代理规则，确保关键服务优先走代理
   # =========================================================
   - RULE-SET,Google / Domain,Google
-  - RULE-SET,Google / IP,Google,no-resolve
   - RULE-SET,Youtube / Domain,YouTube
   - RULE-SET,ChatGPT / Domain,ChatGPT
   - RULE-SET,Copilot / Domain,Copilot
@@ -390,4 +390,5 @@ rule-providers:
   Youtube / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs"}
   Google / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs"}
   Google / IP: {<<: *ip, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/google.mrs"}
+
 
