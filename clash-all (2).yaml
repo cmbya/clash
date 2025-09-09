@@ -285,16 +285,11 @@ proxy-groups:
     filter: "^((?!(直连|拒绝|广港|香港|HK|Hong Kong|🇭🇰|HongKong|广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States|英国|UK|United Kingdom|伦敦|英|London|🇬🇧)).)*$"
 
 # ========================
-# 规则引擎（rules）
-# ========================
-# ========================
-# 规则引擎（rules）
-# ========================
 rules:
   # =========================================================
   # 优先级最高规则：FCM和ZL
   # =========================================================
-  - IP-CIDR,192.168.100.1/32,no-resolve
+  - IP-CIDR,192.168.100.1/32,其他-手动,no-resolve
   - RULE-SET,FCM_ip,FCM,no-resolve       # 优先匹配 FCM IP
   - RULE-SET,FCM / Domain,FCM            # 优先匹配 FCM 域名
   - RULE-SET,ZL_ip,ZL,no-resolve         # 优先匹配你的自定义 IP
@@ -396,6 +391,7 @@ rule-providers:
   Youtube / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs"}
   Google / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs"}
   Google / IP: {<<: *ip, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/google.mrs"}
+
 
 
 
