@@ -98,16 +98,17 @@ proxy-groups:
   # 业务分流组
   - {name: ZL, <<: *default}
   - {name: FCM, <<: *default}
+  - {name: DL, <<: *default}
   - {name: ChatGPT, <<: *default}
   - {name: Copilot, <<: *default}
   - {name: Gemini, <<: *default}
+  - {name: TikTok, <<: *default}
   - {name: twitch, <<: *default}
   - {name: GitHub, <<: *default}
   - {name: Telegram, <<: *default}
   - {name: Steam, <<: *default}
   - {name: Game, <<: *default}
   - {name: YouTube, <<: *default}
-  - {name: TikTok, <<: *default}
   - {name: Amazon, <<: *default}
   - {name: Apple, <<: *default}
   - {name: Microsoft, <<: *default}
@@ -285,44 +286,36 @@ proxy-groups:
     filter: "^((?!(直连|拒绝|广港|香港|HK|Hong Kong|🇭🇰|HongKong|广台|台湾|台灣|TW|Tai Wan|🇹🇼|🇨🇳|TaiWan|Taiwan|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea|广美|美|US|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|拉斯|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States|英国|UK|United Kingdom|伦敦|英|London|🇬🇧)).)*$"
 
 # ========================
-# 规则引擎（rules）
-# ========================
-# ========================
-# 规则引擎（rules）
-# ========================
 rules:
   # =========================================================
-  # 优先级最高的规则：阻止恶意流量，以及你的自定义FCM和ZL规则
+  # 优先级最高规则：FCM和ZL
+  # =========================================================
+  - RULE-SET,FCM_ip,FCM,no-resolve       # 优先匹配 FCM IP
+  - RULE-SET,FCM / Domain,FCM            # 优先匹配 FCM 域名
+  - RULE-SET,ZL_ip,ZL,no-resolve         # 优先匹配你的自定义 IP
+  - RULE-SET,ZL / Domain,ZL              # 优先匹配你的自定义域名
+  - RULE-SET,DL / Domain,DL
+  
+  # =========================================================
+  # 第二优先级：阻止恶意流量
   # =========================================================
   - RULE-SET,Block / Domain,Block         # 必须最先阻止不必要的流量
-  - RULE-SET,FCM_ip,FCM,no-resolve       # 优先匹配 FCM IP
-  - RULE-SET,ZL_ip,ZL,no-resolve         # 优先匹配你的自定义 IP
-  - RULE-SET,FCM / Domain,FCM            # 优先匹配 FCM 域名
-  - RULE-SET,ZL / Domain,ZL              # 优先匹配你的自定义域名
   
   # =========================================================
-  # 其他IP和国内直连规则，位于你的自定义规则之后
+  # 第三优先级：AI 和流媒体服务
   # =========================================================
-  - GEOIP,CN,国内,no-resolve             # 所有中国IP都直连
-  - RULE-SET,China / IP,国内,no-resolve
-  - RULE-SET,China / Domain,国内
-  - RULE-SET,Private / Domain,国内       # 私有域名走国内
-  - RULE-SET,Direct / Domain,国内        # 直连域名走国内
-  
-  # =========================================================
-  # 高优先级代理规则，确保关键服务优先走代理
-  # =========================================================
-  - RULE-SET,Google / IP,Google,no-resolve
-  - RULE-SET,Telegram / IP,Telegram,no-resolve
-  - RULE-SET,Youtube / Domain,YouTube
-  - RULE-SET,Google / Domain,Google
   - RULE-SET,ChatGPT / Domain,ChatGPT
   - RULE-SET,Copilot / Domain,Copilot
   - RULE-SET,Gemini / Domain,Gemini
-  - RULE-SET,GitHub / Domain,GitHub
-  - RULE-SET,Telegram / Domain,Telegram
-  - RULE-SET,twitch / Domain,twitch
   - RULE-SET,TikTok / Domain,TikTok
+  - RULE-SET,Youtube / Domain,YouTube
+  - RULE-SET,Telegram / Domain,Telegram
+  - RULE-SET,Telegram / IP,Telegram,no-resolve
+  - RULE-SET,twitch / Domain,twitch
+  
+  # =========================================================
+  # 其他高优先级代理规则
+  # =========================================================
   - RULE-SET,Steam / Domain,Game
   - RULE-SET,Epic / Domain,Game
   - RULE-SET,EA / Domain,Game
@@ -333,11 +326,18 @@ rules:
   - RULE-SET,Amazon / Domain,Amazon
   - RULE-SET,Apple / Domain,Apple
   - RULE-SET,Microsoft / Domain,Microsoft
-  - RULE-SET,Twitter / Domain,国外
+  - RULE-SET,GitHub / Domain,GitHub
+  - RULE-SET,Google / Domain,Google
+  - RULE-SET,Google / IP,Google,no-resolve
   
   # =========================================================
   # 其他规则集和默认匹配规则
   # =========================================================
+  - GEOIP,CN,国内,no-resolve             # 所有中国IP都直连
+  - RULE-SET,China / IP,国内,no-resolve
+  - RULE-SET,China / Domain,国内
+  - RULE-SET,Private / Domain,国内       # 私有域名走国内
+  - RULE-SET,Direct / Domain,国内        # 直连域名走国内
   - RULE-SET,Proxy / Domain,国外
   - RULE-SET,Globe / Domain,国外
   - RULE-SET,TEST / Domain,Test
@@ -346,7 +346,6 @@ rules:
   # 兜底规则，处理所有未被以上规则匹配的流量
   # =========================================================
   - MATCH,其他
-
 
 # ========================
 # 规则集提供者
@@ -359,6 +358,7 @@ rule-anchor:
 rule-providers:
   TEST / Domain: {<<: *class, url: "https://gh-proxy.com/raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Check.list"}
   FCM / Domain: {<<: *class, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/GoogleFCM.list"}
+  DL / Domain: {<<: *class, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/dl.list"}
   FCM_ip: { <<: *class, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/fcmip.list"}
   ZL / Domain: {<<: *class, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/zhilian.list"}
   ZL_ip: { <<: *class, url: "https://raw.githubusercontent.com/cmbya/clash/refs/heads/main/zhilianip.list"}
@@ -369,7 +369,6 @@ rule-providers:
   GitHub / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/github.mrs"}
   Telegram / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/telegram.mrs"}
   Telegram / IP: {<<: *ip, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/telegram.mrs"}
-  Twitter / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/x.mrs"}
   Amazon / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/amazon.mrs"}
   Apple-CN / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple-cn.mrs"}
   Apple / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple.mrs"}
@@ -392,6 +391,7 @@ rule-providers:
   Youtube / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs"}
   Google / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs"}
   Google / IP: {<<: *ip, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/google.mrs"}
+
 
 
 
