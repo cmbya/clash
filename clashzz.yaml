@@ -11,6 +11,17 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 直连 
+
+# 节点信息
+proxies:
+  - name: "US落地"
+    dialer-proxy: 香港-手动
+    type: ss
+    server: "192.3.208.59"
+    port: 8082
+    cipher: "aes-128-gcm"
+    password: "083496a7-7cef-4a71-9593-ec3d11dcfc77"
+    udp: true
     
 proxies:
   - {name: 直连, type: direct}
@@ -391,6 +402,7 @@ rule-providers:
   Youtube / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs"}
   Google / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs"}
   Google / IP: {<<: *ip, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/google.mrs"}
+
 
 
 
