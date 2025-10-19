@@ -1,14 +1,14 @@
-# Auto generated: 2025-10-19 23:26:32 CST (Beijing Time)
+# Auto generated: 2025-10-19 23:49:31 CST (Beijing Time)
 # Source:
 # https://raw.githubusercontent.com/yangFenTuoZi/fcm-hosts/refs/heads/master/hosts
 
-- IP-CIDR,64.233.177.188/32
-- IP-CIDR,74.125.27.188/32
-- IP-CIDR,74.125.137.188/32
-- IP-CIDR,142.250.96.188/32
-- IP-CIDR,142.250.176.14/32
-- IP-CIDR,172.253.132.188/32
-- IP-CIDR,192.178.131.188/32
-- IP-CIDR,192.178.152.188/32
-- IP-CIDR,192.178.209.188/32
-- IP-CIDR,192.178.220.188/32
+IP-CIDR,64.233.177.188/32,no-resolve
+IP-CIDR,74.125.27.188/32,no-resolve
+IP-CIDR,74.125.137.188/32,no-resolve
+IP-CIDR,142.250.96.188/32,no-resolve
+IP-CIDR,142.250.176.14/32,no-resolve
+IP-CIDR,172.253.132.188/32,no-resolve
+IP-CIDR,192.178.131.188/32,no-resolve
+IP-CIDR,192.178.152.188/32,no-resolve
+IP-CIDR,192.178.209.188/32,no-resolve
+IP-CIDR,192.178.220.188/32,no-resolve
