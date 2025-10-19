@@ -49,7 +49,7 @@ def format_lines(ips):
         f"# {SOURCE_URL}",
         ""
     ]
-    # 输出格式为：IP-CIDR,xxx.xxx.xxx.xxx/32,no-resolve
+    # 格式为：IP-CIDR,xxx.xxx.xxx.xxx/32,no-resolve（无短横线）
     lines += [f"IP-CIDR,{ip}/32,no-resolve" for ip in ips]
     return "\n".join(lines) + "\n"
 
