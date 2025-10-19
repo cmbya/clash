@@ -3,7 +3,7 @@ name: Update fcmip.list
 on:
   workflow_dispatch: {}        # 手动触发
   schedule:
-    - cron: '0 */6 * * *'      # 每6小时自动运行一次
+    - cron: '0 */12 * * *'      # 每6小时自动运行一次
   push:
     branches:
       - main
