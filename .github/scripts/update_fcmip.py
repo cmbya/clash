@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 自动从远程 hosts 文件中提取 IPv4 地址，
-转换成 Clash 格式 (- IP-CIDR,xxx.xxx.xxx.xxx/32)
+格式化为：IP-CIDR,xxx.xxx.xxx.xxx/32,no-resolve
 并保存到仓库中的 fcmip.list。
 """
 
@@ -40,11 +40,17 @@ def extract_ips(text):
     return sorted(ips, key=lambda ip: tuple(map(int, ip.split('.'))))
 
 def format_lines(ips):
-    # 改为北京时间（UTC+8）
+    # 使用北京时间（UTC+8）
     now_beijing = datetime.utcnow() + timedelta(hours=8)
     time_str = now_beijing.strftime("%Y-%m-%d %H:%M:%S CST (Beijing Time)")
-    lines = [f"# Auto generated: {time_str}", "# Source:", f"# {SOURCE_URL}", ""]
-    lines += [f"- IP-CIDR,{ip}/32" for ip in ips]
+    lines = [
+        f"# Auto generated: {time_str}",
+        "# Source:",
+        f"# {SOURCE_URL}",
+        ""
+    ]
+    # 输出格式为：IP-CIDR,xxx.xxx.xxx.xxx/32,no-resolve
+    lines += [f"IP-CIDR,{ip}/32,no-resolve" for ip in ips]
     return "\n".join(lines) + "\n"
 
 def main():
