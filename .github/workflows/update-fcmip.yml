@@ -1,0 +1,48 @@
+name: Update fcmip.list
+
+on:
+  workflow_dispatch: {}        # 手动触发
+  schedule:
+    - cron: '0 */6 * * *'      # 每6小时自动运行一次
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write              # 允许写入仓库
+
+jobs:
+  update-fcmip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Fetch and generate fcmip.list
+        env:
+          SOURCE_URL: https://raw.githubusercontent.com/yangFenTuoZi/fcm-hosts/refs/heads/master/hosts
+          TARGET_PATH: fcmip.list
+        run: |
+          pip install requests
+          python .github/scripts/update_fcmip.py
+
+      - name: Commit and push changes (if any)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add fcmip.list || true
+          if ! git diff --cached --quiet; then
+            git commit -m "Auto update fcmip.list (via GitHub Actions)"
+            git push
+            echo "✅ Changes committed and pushed."
+          else
+            echo "ℹ️ No changes to commit."
+          fi
