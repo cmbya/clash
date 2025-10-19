@@ -9,7 +9,7 @@
 import os
 import re
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 from ipaddress import IPv4Address
 
 SOURCE_URL = os.environ.get(
@@ -40,8 +40,10 @@ def extract_ips(text):
     return sorted(ips, key=lambda ip: tuple(map(int, ip.split('.'))))
 
 def format_lines(ips):
-    now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
-    lines = [f"# Auto generated: {now}", "# Source:", f"# {SOURCE_URL}", ""]
+    # 改为北京时间（UTC+8）
+    now_beijing = datetime.utcnow() + timedelta(hours=8)
+    time_str = now_beijing.strftime("%Y-%m-%d %H:%M:%S CST (Beijing Time)")
+    lines = [f"# Auto generated: {time_str}", "# Source:", f"# {SOURCE_URL}", ""]
     lines += [f"- IP-CIDR,{ip}/32" for ip in ips]
     return "\n".join(lines) + "\n"
 
