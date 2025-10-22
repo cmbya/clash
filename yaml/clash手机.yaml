@@ -1,9 +1,7 @@
-# 机场节点订阅
-
 proxy-providers:
 
   聚合:
-    url: "http://192.168.100.125:3001/1411775aA@/download/collection/JH"
+    url: "订阅链接"
     type: http
     interval: 86400
     health-check:
@@ -100,7 +98,6 @@ default: &default
     - 台湾-故转
     - 日本-故转
     - 新加坡-故转
-    - 韩国-故转
     - 美国-故转
     - 其他-故转
     - 拒绝
@@ -230,25 +227,6 @@ proxy-groups:
     interval: 300
     filter: "^(?=.*(广新|新加坡|SG|坡|狮城|🇸🇬|Singapore))(?!.*落地).*$"
 
-  # 韩国组
-  - name: 韩国-故转
-    type: fallback
-    interval: 300
-    lazy: false
-    proxies:
-      - 韩国-手动
-      - 韩国-自动
-  - name: 韩国-手动
-    type: select
-    include-all: true
-    filter: "(?=.*(广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea)).*$"
-  - name: 韩国-自动
-    type: url-test
-    include-all: true
-    tolerance: 50
-    interval: 300
-    filter: "(?=.*(广韩|韩国|韓國|KR|首尔|春川|🇰🇷|Korea)).*$"
-
   # 美国组
   - name: 美国-故转
     type: fallback
@@ -292,10 +270,14 @@ rules:
   # =========================================================
   # 优先级最高规则：FCM和ZL
   # =========================================================
+  - IP-CIDR,192.168.100.1/32,no-resolve
+  - IP-CIDR,192.168.100.125/32,no-resolve
   - RULE-SET,FCM_ip,FCM,no-resolve       # 优先匹配 FCM IP
   - RULE-SET,FCM_ip2,FCM,no-resolve      # 第二优先匹配 FCM IP2
   - RULE-SET,FCM / Domain,FCM            # FCM 域名规则
   - RULE-SET,ZL / Domain,ZL
+  - RULE-SET,ZL_ip,ZL,no-resolve
+  
   # =========================================================
   # 第二优先级：阻止恶意流量
   # =========================================================
@@ -363,6 +345,7 @@ rule-providers:
   GitHub / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/GitHub/GitHub.list"}
   Microsoft / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Microsoft/Microsoft.list"}
   ZL / Domain: {<<: *class, url: "https://raw.githubusercontent.com/cmbya/clash/main/zhilian.list"}
+  ZL_ip / Domain: {<<: *class, url: "https://raw.githubusercontent.com/cmbya/clash/main/zhilian.list"}
   Copilot / Domain: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Copilot/Copilot.list"}
   ChatGPT / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openai.mrs"}
   twitch / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/twitch.mrs"}
