@@ -1,4 +1,4 @@
-# Auto generated: 2026-01-25 20:25:14 CST (Beijing Time)
+# Auto generated: 2026-01-26 09:08:29 CST (Beijing Time)
 # Sources:
 # https://raw.githubusercontent.com/yangFenTuoZi/fcm-hosts/refs/heads/master/hosts
 # https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/GoogleFCM/GoogleFCM.list
@@ -7,8 +7,8 @@ IP-CIDR,64.233.177.188/32,no-resolve
 IP-CIDR,74.125.27.188/32,no-resolve
 IP-CIDR,74.125.137.188/32,no-resolve
 IP-CIDR,142.250.96.188/32,no-resolve
-IP-CIDR,142.250.189.238/32,no-resolve
-IP-CIDR,142.251.46.206/32,no-resolve
+IP-CIDR,142.250.189.174/32,no-resolve
+IP-CIDR,142.250.189.206/32,no-resolve
 IP-CIDR,172.253.132.188/32,no-resolve
 IP-CIDR,172.253.135.188/32,no-resolve
 IP-CIDR,172.253.145.188/32,no-resolve
