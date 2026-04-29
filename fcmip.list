@@ -1,15 +1,17 @@
-# Auto generated: 2026-04-29 10:04:01 CST (Beijing Time)
+# Auto generated: 2026-04-29 21:23:53 CST (Beijing Time)
 # Sources:
 # https://raw.githubusercontent.com/yangFenTuoZi/fcm-hosts/refs/heads/master/hosts
 # https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/GoogleFCM/GoogleFCM.list
 
 IP-CIDR,64.233.177.188/32,no-resolve
 IP-CIDR,142.250.96.188/32,no-resolve
-IP-CIDR,142.250.114.190/32,no-resolve
-IP-CIDR,142.251.96.188/32,no-resolve
-IP-CIDR,172.217.72.188/32,no-resolve
+IP-CIDR,142.250.177.238/32,no-resolve
+IP-CIDR,142.251.214.206/32,no-resolve
 IP-CIDR,172.253.132.188/32,no-resolve
-IP-CIDR,172.253.135.93/32,no-resolve
+IP-CIDR,172.253.147.188/32,no-resolve
+IP-CIDR,172.253.149.188/32,no-resolve
+IP-CIDR,192.178.129.188/32,no-resolve
+IP-CIDR,192.178.131.188/32,no-resolve
 IP-CIDR,192.178.218.188/32,no-resolve
 IP-CIDR,209.85.144.188/32,no-resolve
 DOMAIN,alt1-mtalk.google.com
